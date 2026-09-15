@@ -8,6 +8,7 @@ import { MediaService } from '../../core/services/media.service';
 import { AuthService } from '../../core/services/auth.service';
 import { environment } from '../../../environments/environment';
 import { HeaderComponent } from '../../shared/components/header/header';
+import { HttpClient } from '@angular/common/http';
 
 interface WallDraft {
     coordinates: [number, number][];
@@ -50,7 +51,8 @@ export class WallSelectorComponent implements AfterViewInit {
         private projectService: ProjectService,
         private colorService: ColorService,
         private mediaService: MediaService,
-        private authService: AuthService
+        private authService: AuthService,
+        private http: HttpClient
     ) {
         this.projectId = this.route.snapshot.paramMap.get('id') || '';
     }
@@ -303,8 +305,8 @@ export class WallSelectorComponent implements AfterViewInit {
     }
 
     downloadUrl(): string {
-        return `${environment.apiUrl}/projects/${this.projectId}/download`;
-    }
+    return `${environment.apiUrl}/projects/${this.projectId}/download`;
+    }      
 
     onLogout() {
         this.authService.logout().subscribe(() => this.router.navigate(['/login']));

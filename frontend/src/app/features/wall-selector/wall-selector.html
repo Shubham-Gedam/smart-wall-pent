@@ -118,12 +118,13 @@
             >
               🗑 Clear Selection
             </button>
-            <a
-              [href]="downloadUrl()"
-              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition font-medium"
-            >
-              📥 Download Preview
-            </a>
+            <button
+                type="button"
+                (click)="downloadProject()"
+                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition font-medium"
+                >
+                📥 Download
+            </button>
           </div>
 
         </div>
