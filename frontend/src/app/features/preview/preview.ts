@@ -1,5 +1,5 @@
 import { Component, signal, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService, Project } from '../../core/services/project.service';
 import { environment } from '../../../environments/environment';
 import { HeaderComponent } from '../../shared/components/header/header';
@@ -7,7 +7,7 @@ import { HeaderComponent } from '../../shared/components/header/header';
 @Component({
     selector: 'app-preview',
     standalone: true,
-    imports: [RouterLink, HeaderComponent],
+    imports: [HeaderComponent],
     templateUrl: './preview.html'
 })
 export class PreviewComponent implements OnInit {

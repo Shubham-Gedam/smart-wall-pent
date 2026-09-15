@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, signal, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../core/services/project.service';
 import { ColorService, Color } from '../../core/services/color.service';
 import { MediaService } from '../../core/services/media.service';
@@ -19,7 +19,7 @@ interface WallDraft {
 @Component({
     selector: 'app-wall-selector',
     standalone: true,
-    imports: [CommonModule, FormsModule, RouterLink, HeaderComponent],
+    imports: [CommonModule, FormsModule, HeaderComponent],
     templateUrl: './wall-selector.html'
 })
 export class WallSelectorComponent implements AfterViewInit {

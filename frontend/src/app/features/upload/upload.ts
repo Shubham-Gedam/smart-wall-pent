@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { MediaService } from '../../core/services/media.service';
 import { ProjectService } from '../../core/services/project.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -11,7 +11,7 @@ const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/jpg'];
 @Component({
     selector: 'app-upload',
     standalone: true,
-    imports: [RouterLink, HeaderComponent],
+    imports: [HeaderComponent],
     templateUrl: './upload.html'
 })
 export class UploadComponent {

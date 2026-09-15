@@ -178,7 +178,7 @@
               <span class="block w-full h-14 rounded-lg shadow-2xs transition group-hover:scale-[1.02]" [style.background]="color.hex"></span>
               <div class="mt-1">
                 <span class="block text-xs font-bold text-slate-800 truncate">{{ color.name }}</span>
-                @if (color.categoryTags?.[0]) {
+                @if (color.categoryTags[0]) {
                   <span class="block text-[10px] font-medium text-slate-400 truncate">{{ color.categoryTags[0] }}</span>
                 }
               </div>
