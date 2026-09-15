@@ -1,0 +1,62 @@
+<div class="max-w-6xl mx-auto p-4 sm:p-6">
+    <app-header></app-header>
+  
+
+    @if (errorMessage()) {
+        <p class="text-red-600 text-sm mb-4">{{ errorMessage() }}</p>
+    }
+
+    @if (loading()) {
+        <p>Loading your designs...</p>
+    } @else if (projects().length === 0) {
+        <div class="text-center py-16">
+            <p class="text-gray-500 mb-4">You haven't saved any designs yet.</p>
+            <a routerLink="/" class="px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700 transition">
+                Upload your first room photo
+            </a>
+        </div>
+    } @else {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            @for (project of projects(); track project._id) {
+                <div class="rounded-xl shadow-sm bg-white overflow-hidden flex flex-col">
+                    <img
+                        [src]="project.finalPreviewUrl || project.originalImageUrl"
+                        [alt]="project.title"
+                        class="w-full h-44 object-cover"
+                    />
+                    <div class="p-4 flex flex-col gap-2 flex-1">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-medium m-0 truncate">{{ project.title }}</h3>
+                            <span
+                                [class]="'text-xs px-2 py-0.5 rounded-full ' + (project.status === 'saved' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600')"
+                            >
+                                {{ project.status }}
+                            </span>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 mt-auto pt-2">
+                            <button
+                                (click)="onEdit(project._id)"
+                                class="min-w-20 flex-1 px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs cursor-pointer hover:bg-blue-700 transition"
+                            >
+                                Edit
+                            </button>
+                            <a
+                                [href]="downloadUrl(project._id)"
+                                class="min-w-20 flex-1 px-3 py-1.5 rounded-lg border border-gray-300 text-xs text-center hover:bg-gray-50 transition"
+                            >
+                                Download
+                            </a>
+                            <button
+                                (click)="onDelete(project._id)"
+                                class="min-w-20 flex-1 px-3 py-1.5 rounded-lg border border-red-200 text-red-600 text-xs cursor-pointer hover:bg-red-50 transition"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -1,0 +1,97 @@
+<div class="min-h-screen bg-[#F8FAFC] flex flex-col font-sans text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
+<app-header></app-header>
+
+  <!-- Hero Section -->
+  <main class="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 py-12 sm:py-20 flex flex-col items-center text-center">
+    
+    <!-- Floating Feature Pill -->
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold tracking-wide mb-6 shadow-xs">
+      <span class="inline-block w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+      Instant AI Wall Color Preview
+    </div>
+
+    <!-- Main Headline -->
+    <h1 class="text-3xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] max-w-4xl">
+      Visualize your dream room <br class="hidden sm:inline" />
+      <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+        before opening a paint can
+      </span>
+    </h1>
+
+    <p class="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto mt-4 mb-10 leading-relaxed font-normal">
+      Upload a photo of your living space, trace any wall in seconds, and experiment with hundred+ realistic colors and texture finishes instantly.
+    </p>
+
+    <!-- Main Action CTA -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a
+        routerLink="/upload"
+        class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-base shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/35 transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 cursor-pointer group"
+      >
+        <span>📸 Start New Project</span>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+      
+      <a
+        routerLink="/saved-designs"
+        class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white border border-slate-200/80 text-slate-700 font-bold text-base hover:bg-slate-50 shadow-xs transition flex items-center justify-center gap-2"
+      >
+        <span>📂 View Saved Work</span>
+      </a>
+    </div>
+
+    <!-- Interactive How-it-Works Grid -->
+    <div class="w-full mt-20 pt-10 border-t border-slate-200/60">
+      <div class="text-center mb-10">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">How PaintViz Works</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">Transform your space in 3 effortless steps</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        
+        <!-- Step 1 -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs hover:shadow-md hover:border-blue-200 transition group">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-lg mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition">
+            1
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Upload Room Photo</h3>
+          <p class="text-xs sm:text-sm text-slate-500 leading-relaxed m-0">
+            Choose a well-lit photo of your bedroom, living room, or office wall to start visualizing.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs hover:shadow-md hover:border-blue-200 transition group">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-lg mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition">
+            2
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Trace & Apply Colors</h3>
+          <p class="text-xs sm:text-sm text-slate-500 leading-relaxed m-0">
+            Use smart polygon tools to outline your target walls and swap shades from our curated color palette.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs hover:shadow-md hover:border-blue-200 transition group">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-lg mb-6 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition">
+            3
+          </div>
+          <h3 class="text-base sm:text-lg font-bold text-slate-900 mb-2">Compare & Export</h3>
+          <p class="text-xs sm:text-sm text-slate-500 leading-relaxed m-0">
+            Slide through before/after previews, adjust opacity/finishes, and save your finished design.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Clean Footer -->
+  <footer class="mt-auto bg-white border-t border-slate-200/80 py-6 px-4 text-center text-xs text-slate-400 font-medium">
+    © {{ currentYear }} PaintViz Studio. All rights reserved.
+  </footer>
+
+</div>

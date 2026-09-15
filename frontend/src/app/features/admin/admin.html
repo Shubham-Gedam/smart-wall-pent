@@ -1,0 +1,161 @@
+<div class="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8 font-sans">
+  <div class="max-w-5xl mx-auto space-y-6">
+    
+    <!-- Top Header -->
+    <header class="flex justify-between items-center pb-4 border-b border-slate-200">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-800 tracking-tight m-0">Admin Panel</h1>
+        <p class="text-xs text-slate-500 m-0 mt-0.5">Manage palette colors, textures, and wall design inventory</p>
+      </div>
+      <a routerLink="/" class="inline-flex items-center gap-2 px-4 py-2 border border-slate-300 rounded-lg bg-white text-sm font-medium text-slate-700 hover:bg-slate-100 hover:border-slate-400 transition shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to App
+      </a>
+    </header>
+
+    <!-- Error Banner -->
+    @if (errorMessage()) {
+      <div class="p-4 rounded-lg bg-red-50 border border-red-200 flex items-center justify-between text-red-700 text-sm">
+        <div class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+        <button (click)="errorMessage.set('')" class="text-red-400 hover:text-red-700 font-bold">✕</button>
+      </div>
+    }
+
+    <!-- Tab Selection -->
+    <div class="flex gap-2 p-1 bg-slate-200/60 rounded-xl w-fit">
+      <button
+        (click)="activeTab.set('colors')"
+        [class]="'px-5 py-2 text-sm font-semibold rounded-lg transition-all ' + (activeTab() === 'colors' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900')"
+      >
+        Colours
+      </button>
+      <button
+        (click)="activeTab.set('patterns')"
+        [class]="'px-5 py-2 text-sm font-semibold rounded-lg transition-all ' + (activeTab() === 'patterns' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-600 hover:text-slate-900')"
+      >
+        Patterns
+      </button>
+    </div>
+
+    <!-- COLORS TAB -->
+    @if (activeTab() === 'colors') {
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+        <h2 class="text-base font-semibold text-slate-800 m-0">Add New Colour</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
+          <label class="flex flex-col gap-1.5 text-xs font-medium text-slate-600">
+            Colour Name *
+            <input [(ngModel)]="newColorName" placeholder="e.g. Royal Velvet" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+          </label>
+          
+          <label class="flex flex-col gap-1.5 text-xs font-medium text-slate-600">
+            Hex Swatch *
+            <div class="flex items-center gap-2 border border-slate-300 rounded-lg p-1 bg-white">
+              <input type="color" [(ngModel)]="newColorHex" class="h-7 w-12 rounded cursor-pointer border-0 bg-transparent p-0" />
+              <span class="text-xs uppercase font-mono text-slate-600 font-semibold">{{ newColorHex }}</span>
+            </div>
+          </label>
+
+          <label class="flex flex-col gap-1.5 text-xs font-medium text-slate-600">
+            Brand (Optional)
+            <input [(ngModel)]="newColorBrand" placeholder="e.g. Behr / Asian Paints" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+          </label>
+
+          <button
+            (click)="addColor()"
+            class="px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 active:bg-blue-800 transition shadow-sm cursor-pointer"
+          >
+            + Add Colour
+          </button>
+        </div>
+      </div>
+
+      <!-- Colors Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        @for (color of colors(); track color._id) {
+          <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow transition group">
+            <div class="flex items-center gap-3 min-w-0">
+              <span class="w-10 h-10 rounded-lg border border-slate-200/80 shadow-inner flex-shrink-0" [style.background]="color.hex"></span>
+              <div class="min-w-0">
+                <p class="text-sm font-semibold text-slate-800 m-0 truncate">{{ color.name }}</p>
+                <div class="flex items-center gap-2 text-xs text-slate-500">
+                  <span class="font-mono font-medium uppercase">{{ color.hex }}</span>
+                  @if (color.brand) {
+                    <span>• {{ color.brand }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+            <button (click)="deleteColor(color._id)" title="Delete Colour" class="p-1.5 text-slate-400 hover:text-red-600 rounded-md hover:bg-red-50 transition cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- PATTERNS TAB -->
+    @if (activeTab() === 'patterns') {
+      <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+        <h2 class="text-base font-semibold text-slate-800 m-0">Add New Pattern</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 items-end">
+          <label class="flex flex-col gap-1.5 text-xs font-medium text-slate-600">
+            Pattern Name *
+            <input [(ngModel)]="newPatternName" placeholder="e.g. Geometric Diamond" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+          </label>
+
+          <label class="flex flex-col gap-1.5 text-xs font-medium text-slate-600">
+            Image URL *
+            <input [(ngModel)]="newPatternImageUrl" placeholder="https://domain.com/pattern.jpg" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+          </label>
+
+          <label class="flex flex-col gap-1.5 text-xs font-medium text-slate-600">
+            Category (Optional)
+            <input [(ngModel)]="newPatternCategory" placeholder="e.g. Floral / Minimal" class="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500" />
+          </label>
+
+          <button
+            (click)="addPattern()"
+            class="px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 active:bg-blue-800 transition shadow-sm cursor-pointer"
+          >
+            + Add Pattern
+          </button>
+        </div>
+      </div>
+
+      <!-- Patterns Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        @for (pattern of patterns(); track pattern._id) {
+          <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow transition">
+            <div class="flex items-center gap-3 min-w-0">
+              <img 
+                [src]="pattern.imageUrl" 
+                [alt]="pattern.name" 
+                (error)="onImageError($event)"
+                class="w-11 h-11 rounded-lg object-cover border border-slate-200 flex-shrink-0 bg-slate-100" 
+              />
+              <div class="min-w-0">
+                <p class="text-sm font-semibold text-slate-800 m-0 truncate">{{ pattern.name }}</p>
+                <p class="text-xs text-slate-500 m-0">{{ pattern.category || 'General Pattern' }}</p>
+              </div>
+            </div>
+            <button (click)="deletePattern(pattern._id)" title="Delete Pattern" class="p-1.5 text-slate-400 hover:text-red-600 rounded-md hover:bg-red-50 transition cursor-pointer">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>
